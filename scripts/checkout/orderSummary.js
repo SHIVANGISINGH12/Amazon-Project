@@ -10,7 +10,7 @@ import { formatCurrency } from "../utils/money.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
-
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 
 export function renderOrderSummary() {
@@ -123,10 +123,11 @@ export function renderOrderSummary() {
 
             // container.remove();
 
-            document.querySelector(
-                ".js-checkout-quantity"
-            ).innerHTML = `${updateCartQuantity()} Items`;
+            // document.querySelector(
+            //     ".js-checkout-quantity"
+            // ).innerHTML = `${updateCartQuantity()} Items`;
 
+            renderCheckoutHeader();
             renderOrderSummary();
             renderPaymentSummary();
         });
@@ -160,10 +161,14 @@ export function renderOrderSummary() {
             document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
                 newQuantity;
 
-            document.querySelector(
-                ".js-checkout-quantity"
-            ).innerHTML = `${updateCartQuantity()} Items`;
+            // document.querySelector(
+            //     ".js-checkout-quantity"
+            // ).innerHTML = `${updateCartQuantity()} Items`;
         }
+
+        renderCheckoutHeader();
+        renderOrderSummary();
+        renderPaymentSummary();
     }
 
     document.querySelectorAll(".save-quantity-link").forEach((link) => {
@@ -186,13 +191,15 @@ export function renderOrderSummary() {
         element.addEventListener("click", () => {
             const { productId, deliveryOptionId } = element.dataset;
             updateDeliveryOption(productId, deliveryOptionId);
+
+            renderCheckoutHeader();
             renderOrderSummary();
             renderPaymentSummary();
         });
     });
 
-    document.querySelector(
-        ".js-checkout-quantity"
-    ).innerHTML = `${updateCartQuantity()} Items`;
+    // document.querySelector(
+    //     ".js-checkout-quantity"
+    // ).innerHTML = `${updateCartQuantity()} Items`;
 }
 
