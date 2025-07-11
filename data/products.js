@@ -553,3 +553,53 @@ export const products = [
   }
   return new Product(productDetails);
 });
+
+
+/*
+--------Built-in-Classes-------
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+*/
+
+
+/*
+---------Properties of "this" keyword----------------
+
+console.log(this); OUTPUT = undefined
+
+const object2 = {
+  a: 2,
+  b: this.a   // Output = undefined ("this" when called in a method is correct but outside its gives undefined as there is no object to point to.)
+};
+
+*/
+
+/*
+--------Relation of "this" with "call" function:
+
+function logThis(){
+  console.log(this);
+}
+
+logThis();
+logThis.call('hello');
+*/
+
+/*
+ -----------this in arrow functions-----
+In arrow functions this will have the same value that they have outside the arrow function,
+that means the value wont be changed
+
+console.log(this);
+
+const object3 = {
+  method: ()=> {
+    console.log(this);
+  }
+};
+
+object3.method();
+*/
+
+
