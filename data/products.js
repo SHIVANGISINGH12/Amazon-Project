@@ -1,4 +1,4 @@
-import {formatCurrency} from '../scripts/utils/money.js'
+import { formatCurrency } from "../scripts/utils/money.js";
 
 export function getProduct(productId) {
   let matchingProduct;
@@ -35,20 +35,20 @@ class Product {
     return `$${formatCurrency(this.priceCents)}`;
   }
 
-   extraInfoHTML(){
-    return '';
+  extraInfoHTML() {
+    return "";
   }
 }
 
-class Clothing extends Product{
+class Clothing extends Product {
   sizeChartLink;
 
-  constructor(productDetails){
+  constructor(productDetails) {
     super(productDetails);
     this.sizeChartLink = productDetails.sizeChartLink;
   }
 
-  extraInfoHTML(){
+  extraInfoHTML() {
     // super.extraInfoHTML();
     return `
     <a href="${this.sizeChartLink}" target="_blank">Size chart</a>
@@ -56,6 +56,28 @@ class Clothing extends Product{
   }
 }
 
+export let products = [];
+
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener("load", () => {
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === "clothing") {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+
+    console.log("load products");
+    fun();
+  });
+
+  xhr.open("GET", "https://supersimplebackend.dev/products");
+  xhr.send();
+}
+
+/*
 export const products = [
   {
     id: "id1",
@@ -553,7 +575,7 @@ export const products = [
   }
   return new Product(productDetails);
 });
-
+*/
 
 /*
 --------Built-in-Classes-------
@@ -561,7 +583,6 @@ const date = new Date();
 console.log(date);
 console.log(date.toLocaleTimeString());
 */
-
 
 /*
 ---------Properties of "this" keyword----------------
@@ -591,7 +612,7 @@ logThis.call('hello');
 In arrow functions this will have the same value that they have outside the arrow function,
 that means the value wont be changed
 
-console.log(this);
+console.log(this); 
 
 const object3 = {
   method: ()=> {
@@ -601,5 +622,3 @@ const object3 = {
 
 object3.method();
 */
-
-
