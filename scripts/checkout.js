@@ -9,6 +9,24 @@ import { loadCart } from "../data/cart.js";
 // Using PROMISES for asynchronous code.
 //"resolve" lets us control when to go to the next step.
 
+async function loadPage() {
+  await loadProductsFetch();
+
+  const value = await new Promise((resolve) => {
+    loadCart(() => {
+      resolve('value3');
+    });
+  });
+
+  renderCheckoutHeader();
+  renderOrderSummary();
+  renderPaymentSummary();
+  
+}
+loadPage();
+
+
+/* ----------PROMISE.ALL-----------------
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve) => {
@@ -22,6 +40,8 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+
+*/
 
 /*
 new Promise((resolve) => {
