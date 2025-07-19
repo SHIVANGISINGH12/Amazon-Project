@@ -10,21 +10,27 @@ import { loadCart } from "../data/cart.js";
 //"resolve" lets us control when to go to the next step.
 
 async function loadPage() {
-  await loadProductsFetch();
+  try {
+    // throw 'error1';
+    await loadProductsFetch();
 
-  const value = await new Promise((resolve) => {
-    loadCart(() => {
-      resolve('value3');
+    const value = await new Promise((resolve, reject) => {
+      //throw 'error2';
+      loadCart(() => {
+        // reject('error3');
+        resolve("value3");
+      });
     });
-  });
+  } 
+  catch (error) {
+    console.log("Unexpected error. Please try again later.");
+  }
 
   renderCheckoutHeader();
   renderOrderSummary();
   renderPaymentSummary();
-  
 }
 loadPage();
-
 
 /* ----------PROMISE.ALL-----------------
 Promise.all([
