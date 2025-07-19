@@ -6,7 +6,7 @@ describe('test suite: addToCart', () => {
 
         spyOn(document, 'querySelector').and.callFake(() => {
             return {value : '1'};
-        });  
+        });
 
         spyOn(localStorage, 'getItem').and.callFake(() => {
             return JSON.stringify([{
